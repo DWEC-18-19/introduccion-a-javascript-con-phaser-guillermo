@@ -31,7 +31,7 @@ function addItems() {
   //
   createItem(230, 200, 'coin');
   //
-  
+
   createItem(580, 150, 'coin');
   //
   createItem(380, 100, 'coin');
@@ -46,18 +46,20 @@ function addPlatforms() {
   platforms.create(100, 550, 'platform');
   platforms.create(450, 550, 'platform');
   //
-  platforms.create(300, 450, 'platform');
+  platforms.create(300, 450, 'platform2');
   //
-  platforms.create(400, 350, 'platform');
+  platforms.create(400, 350, 'platform2');
   //
   platforms.create(50, 300, 'platform');
   platforms.create(650, 300, 'platform');
   //
   platforms.create(150, 250, 'platform');
   //
-  platforms.create(550, 200, 'platform');
+  platforms.create(550, 200, 'platform2');
   //
   platforms.create(250, 150, 'platform');
+  //
+  platforms.create(100, 100, 'platform2');
 
   platforms.setAll('body.immovable', true);
 
@@ -103,6 +105,7 @@ window.onload = function () {
 
     //Load images
     game.load.image('platform', 'platform_1.png');
+    game.load.image('platform2', 'platform_2.png');
 
     //Load spritesheets
     game.load.spritesheet('player', 'chalkers.png', 48, 62);
