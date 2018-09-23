@@ -36,6 +36,12 @@ function addItems() {
   //
   createItem(380, 100, 'coin');
 
+  /*Añadir los sprits de las botellas*/
+  createItem(370,500, 'poison');
+  createItem(100,375, 'poison');
+  /*añado las estrellas*/
+  createItem(125, 50, 'star');
+
 }
 
 // add platforms to the game
@@ -111,6 +117,8 @@ window.onload = function () {
     game.load.spritesheet('player', 'chalkers.png', 48, 62);
     game.load.spritesheet('coin', 'coin.png', 36, 44);
     game.load.spritesheet('badge', 'badge.png', 42, 54);
+    game.load.spritesheet('poison', 'poison.png', 32, 32);
+    game.load.spritesheet('star', 'star.png', 32, 32);
   }
 
   // initial game set up
