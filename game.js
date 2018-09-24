@@ -11,6 +11,9 @@ var winningMessage;
 var won = false;
 var currentScore = 0;
 var winningScore = 100;
+var currentLives = 2;
+var lose = false;
+
 
 // add collectable items to the game
 function addItems() {
@@ -21,8 +24,6 @@ function addItems() {
   createItem(580, 500, 'coin');
   //
   createItem(380, 400, 'coin');
-  //
-  createItem(230, 500, 'coin');
   //
   createItem(530, 300, 'coin');
   //
@@ -35,7 +36,12 @@ function addItems() {
   createItem(580, 150, 'coin');
   //
   createItem(380, 100, 'coin');
+  /*aniadio el veneno*/
+  createItem(370, 500, 'poison');
+  createItem(100, 375, 'poison');
 
+  /**/
+  createItem(125, 50, 'star');
 }
 
 // add platforms to the game
@@ -83,10 +89,25 @@ function createBadge() {
 // when the player collects an item on the screen
 function itemHandler(player, item) {
   item.kill();
-  currentScore = currentScore + 10;
+
+  if(item.key == 'poison'){
+    currentScore = currentScore - 10;
+    --currentLives;
+  }
+  else if (item.key == 'coin')
+    currentScore = currentScore + 10;
+  else
+    currentScore = currentScore + 30;
+
+
   if (currentScore === winningScore) {
       createBadge();
   }
+  if (currentLives === 0){
+    lose = true;
+  }
+
+
 }
 
 // when the player collects the badge at the end of the game
@@ -111,6 +132,8 @@ window.onload = function () {
     game.load.spritesheet('player', 'chalkers.png', 48, 62);
     game.load.spritesheet('coin', 'coin.png', 36, 44);
     game.load.spritesheet('badge', 'badge.png', 42, 54);
+    game.load.spritesheet('poison', 'poison.png', 32, 32);
+    game.load.spritesheet('star', 'star.png', 32, 32);
   }
 
   // initial game set up
@@ -128,6 +151,7 @@ window.onload = function () {
     cursors = game.input.keyboard.createCursorKeys();
     jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
     text = game.add.text(16, 16, "SCORE: " + currentScore, { font: "bold 24px Arial", fill: "white" });
+    textLives = game.add.text(16, 38, "Lives: " + currentLives, { font: "bold 24px Arial", fill: "white" });
     winningMessage = game.add.text(game.world.centerX, 275, "", { font: "bold 48px Arial", fill: "white" });
     winningMessage.anchor.setTo(0.5, 1);
   }
@@ -135,6 +159,7 @@ window.onload = function () {
   // while the game is running
   function update() {
     text.text = "SCORE: " + currentScore;
+    textLives.text = "LIVES: " + currentLives;
     game.physics.arcade.collide(player, platforms);
     game.physics.arcade.overlap(player, items, itemHandler);
     game.physics.arcade.overlap(player, badges, badgeHandler);
@@ -163,6 +188,9 @@ window.onload = function () {
     // when the player winw the game
     if (won) {
       winningMessage.text = "YOU WIN!!!";
+    }
+    else if (lose) {
+      winningMessage.text = "YOU LOSE!!! :(";
     }
   }
 
